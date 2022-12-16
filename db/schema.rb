@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_16_063206) do
+ActiveRecord::Schema.define(version: 2022_12_16_071430) do
 
   create_table "administrators", force: :cascade do |t|
-    t.integer "brand_id", null: false
+    t.integer "brand_id"
     t.string "name", null: false
     t.string "email", null: false
-    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
     t.index ["brand_id"], name: "index_administrators_on_brand_id"
   end
 
@@ -39,9 +39,9 @@ ActiveRecord::Schema.define(version: 2022_12_16_063206) do
     t.string "email", null: false
     t.string "phone_number", null: false
     t.string "address", null: false
-    t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "password_digest"
   end
 
   create_table "orders", force: :cascade do |t|
