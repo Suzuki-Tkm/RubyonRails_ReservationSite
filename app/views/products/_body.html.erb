@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <th>ブランド名</th>
-    <td><%= link_to Brand.find_by(id: @product.brand_id).name , "#" %></td>
+    <td><%= link_to Brand.find_by(id: @product.brand_id).name , Brand.find_by(id: @product.brand_id) %></td>
   </tr>
   <tr>
     <th>商品名</th>

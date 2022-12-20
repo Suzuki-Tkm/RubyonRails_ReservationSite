@@ -1,0 +1,22 @@
+<%= render "shared/errors", obj: @administrator %>
+
+<table class="attr">
+  <tr>
+    <th><%= form.label :brand_name %></th>
+    <td><%= form.text_field :brand_name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :name %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :email %></th>
+    <td><%= form.text_field :email %></td>
+  </tr>
+  <% if @administrator.new_record? %>
+    <tr>
+      <th><%= Administrator.human_attribute_name(:password) %></th>
+      <td><%= form.text_field :password %></td>
+    </tr>
+  <% end %>
+</table>

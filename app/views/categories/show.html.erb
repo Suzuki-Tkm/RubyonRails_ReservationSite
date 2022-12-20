@@ -14,7 +14,7 @@
     <tbody>
       <% @products.each do |p| %>
         <tr>
-          <td><%= link_to Brand.find(p.brand_id).name, "#" %></td>
+          <td><%= link_to Brand.find(p.brand_id).name, Brand.find(p.brand_id) %></td>
           <td><%= link_to p.name, p %></td>
           <td><%= p.price %></td>
           <td><%= p.stock %></td>

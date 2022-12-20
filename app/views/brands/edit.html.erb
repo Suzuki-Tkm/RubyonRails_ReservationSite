@@ -1,0 +1,13 @@
+<% @page_title = "ブランドの編集" %>
+
+<h1><%= @page_title %></h1>
+<%= render "shared/errors", obj: @brand %>
+
+<%= form_for @brand do |form| %>
+  <table class="attr">
+    <tr>
+      <td><%= form.text_field :name, size: 8 %></td>
+    </tr>
+  </table>
+  <div><%= form.submit %></div>
+<% end %>

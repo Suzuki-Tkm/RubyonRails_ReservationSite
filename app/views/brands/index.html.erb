@@ -1,0 +1,28 @@
+<% @page_title = "ブランド" %>
+
+<h1><%= @page_title %></h1>
+
+<%= link_to "新規登録", :new_brand %>
+
+<% if @brands.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>ブランド</th>
+        <th>編集</th>
+        <th>消去</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @brands.each do |p| %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= link_to "編集", [:edit, p] %></td>
+          <td><%= link_to "削除", p, method: :delete , data: { confirm: "本当に削除しますか?" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>ブランドはありません</p>
+<% end %>

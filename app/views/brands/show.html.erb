@@ -1,0 +1,41 @@
+<% @page_title = Brand.find(params[:id]).name %>
+
+<h1><%= @page_title %></h1>
+
+<% if current_brand && current_brand&.brand_id == @brand.id %>
+  <div class="toolbar"><%= link_to "商品の新規登録", :new_product %></div>
+<% end %>
+
+<% if @products.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>在庫</th>
+        <% if current_brand && current_brand&.brand_id == @brand.id %>
+        <th>操作</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |p| %>
+        <tr>
+          <td><%= link_to Category.find_by(id: p.category_id).name , Category.find_by(id: p.category_id) %></td>
+          <td><%= link_to p.name, p %></td>
+          <td><%= p.price %></td>
+          <td><%= p.stock %></td>
+          <% if p.brand_id == current_brand&.brand_id && current_brand %>
+          <td>
+            <%= link_to "編集", [:edit, p] %> |
+            <%= link_to "削除", p, method: :delete, data: { confirm: "本当に削除しますか?" } %>
+          </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>
