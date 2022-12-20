@@ -28,7 +28,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.assign_attributes(params[:product])
     if @product.save
-      redirect_to :products, notice: "会員情報を更新しました。"
+      redirect_to :products, notice: "商品を更新しました。"
     else
       render "edit"
     end
@@ -37,6 +37,6 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-    redirect_to :products, notice: "会員を削除しました。"
+    redirect_to :products, notice: "商品を削除しました。"
   end
 end
