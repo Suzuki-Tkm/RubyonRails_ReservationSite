@@ -6,4 +6,14 @@ class Member < ApplicationRecord
 
   has_many :orders, dependent: :destroy
   has_many :ordered_products, through: :orders, source: :product
+
+  validates :name, presence: true,
+    format: {
+      with: /\A[A-Za-z][A-Za-z0-9]*\z/,
+      allow_blank: true,
+      message: :invalid_member_name
+    },
+    length: { minimum: 2, maximum: 20, allow_blank: true },
+    uniqueness: { case_sensitive: false }
+  validates :email, email: { allow_blank: true }
 end

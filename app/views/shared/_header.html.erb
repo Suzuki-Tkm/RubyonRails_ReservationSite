@@ -1,3 +1,23 @@
+<% if current_member %>
+  <ul class="account-menu">
+    <%= menu_link_to current_member.name + "さん", :account %>
+    <%= menu_link_to "ログアウト", :session, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+    <%= menu_link_to "カート", "#" %>
+  </ul>
+<% end %>
+<% if current_administrator%>
+    <ul class="account-menu">
+    <%=  "管理者 " + current_administrator.name + "さん"%>
+    <%= menu_link_to "ログアウト", :session, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
+<% end %>
+<% if current_brand %>
+  <ul class="account-menu">
+    <%= Brand.all.find(current_brand.brand_id).name + "  " + current_brand.name + "さん"%>
+    <%= menu_link_to "ログアウト", :session, method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
+<% end %>
+
 <nav class="menubar">
   <ul>
     <%= menu_link_to "TOP", :root %>
