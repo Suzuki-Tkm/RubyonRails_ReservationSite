@@ -1,0 +1,27 @@
+<% @page_title = Category.find(params[:id]).name %>
+<h1><%= @page_title %></h1>
+
+<% if @products.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>ブランド</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>在庫</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |p| %>
+        <tr>
+          <td><%= link_to Brand.find(p.brand_id).name, "#" %></td>
+          <td><%= link_to p.name, p %></td>
+          <td><%= p.price %></td>
+          <td><%= p.stock %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>

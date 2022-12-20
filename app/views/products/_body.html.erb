@@ -1,4 +1,13 @@
 <table class="attr">
+  <tr>
+    <th>カテゴリー</th>
+    <td><%= link_to Category.find_by(id: @product.category_id).name , Category.find_by(id: @product.category_id) %></td>
+  </tr>
+  <tr>
+    <th>ブランド名</th>
+    <td><%= link_to Brand.find_by(id: @product.brand_id).name , "#" %></td>
+  </tr>
+  <tr>
     <th>商品名</th>
     <td><%= @product.name %></td>
   </tr>

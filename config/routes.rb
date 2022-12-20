@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   root "products#index"
 
   resources :products
+  resources :categories, only: [:index, :show , :create]
 
   resource :session, only: [:create, :destroy]
   resource :account, only: [:show, :edit, :update , :new , :create] do

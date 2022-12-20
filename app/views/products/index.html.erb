@@ -15,7 +15,7 @@
     <tbody>
       <% @products.each do |product| %>
         <tr>
-          <td><%= link_to Category.find_by(id: product.category_id).name , "#" %></td>
+          <td><%= link_to Category.find_by(id: product.category_id).name , Category.find_by(id: product.category_id) %></td>
           <td><%= link_to Brand.find_by(id: product.brand_id).name , "#" %></td>
           <td><%= link_to product.name, product %></td>
           <td><%= product.price %></td>

@@ -21,5 +21,12 @@
 <nav class="menubar">
   <ul>
     <%= menu_link_to "TOP", :root %>
+    <% if current_administrator %>
+    <%= menu_link_to "カテゴリー追加" , :categories %>
+    <%= menu_link_to "ブランド追加" , "#" %>
+    <% elsif current_brand %>
+    <%= link_to "出品商品一覧" , "#" %>
+    <%= link_to "注文された商品" , "#" %>
+    <% end%>
   </ul>
 </nav>
