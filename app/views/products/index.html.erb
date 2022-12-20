@@ -1,0 +1,30 @@
+<% @page_title = "おすすめ商品" %>
+<h1><%= @page_title %></h1>
+
+<% if @products.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>ブランド</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>在庫</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= link_to Category.find_by(id: product.category_id).name , "#" %></td>
+          <td><%= link_to Brand.find_by(id: product.brand_id).name , "#" %></td>
+          <td><%= link_to product.name, product %></td>
+          <td><%= product.price %></td>
+          <td><%= product.stock %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>
+

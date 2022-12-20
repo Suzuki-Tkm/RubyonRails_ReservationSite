@@ -1,0 +1,30 @@
+<table class="attr">
+  <tr>
+    <th><%= form.label :name, "商品名" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :stock, "在庫" %></th>
+    <td><%= form.text_field :stock %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :price, "価格" %></th>
+    <td><%= form.text_field :price %></td>
+  </tr>
+  <tr>
+    <th>カテゴリー</th>
+    <td>
+      <% options = []
+      Category.all.each do |c|
+        data = []
+        data.push(c.name , c.id)
+        options.push(data)
+      end%>
+      <%= form.select :category_id , options %>
+    </td>
+  </tr>
+  <tr>
+    <th>ブランド</th>
+    <td><%= Brand.all.find(@product.brand_id).name %></td>
+  </tr>
+</table>
