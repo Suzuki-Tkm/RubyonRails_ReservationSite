@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resource :account, only: [:show, :edit, :update , :new , :create] do
     get :history , on: :collection
   end
+  resource :password, only: [:show, :edit, :update]
 end
