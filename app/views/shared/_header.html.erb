@@ -25,8 +25,8 @@
     <%= menu_link_to "カテゴリー追加" , :categories %>
     <%= menu_link_to "ブランド追加" , :brands %>
     <% elsif current_brand %>
-    <%= link_to "出品商品一覧" , "#" %>
-    <%= link_to "注文された商品" , "#" %>
+    <%= link_to "出品商品一覧" , Brand.find_by(id: current_brand.brand_id) %>
+    <%= link_to "注文された商品" , :brand_order_orders %>
     <% end%>
   </ul>
 </nav>

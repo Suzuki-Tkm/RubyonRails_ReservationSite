@@ -1,0 +1,37 @@
+<% @page_title = "注文された商品" %>
+<h1><%= @page_title %></h1>
+
+<% if @orders.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>注文数</th>
+        <th>発送状態</th>
+        <th>発送</th>
+        <th>注文日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |p| %>
+        <tr>
+          <td><%= link_to Category.find(Product.find(p.product_id).id).name , Category.find(Product.find(p.product_id).id) %></td>
+          <td><%= link_to Product.find(p.product_id).name, Product.find(p.product_id) %></td>
+          <td><%= Product.find(p.product_id).price %></td>
+          <td><%= p.orders %></td>
+          <td><%= Order.status_text(p.status) %></td>
+          <% if p.status.eql?("before_ordering")%>
+          <td><%= link_to "発送する" , [:brand_send , p] , method: :post , data: { confirm: "発送しますか?" } %></td>
+          <% else %>
+          <td></td>
+          <% end %>
+          <td><%= p.order_date.strftime("%Y/%m/%d %H:%M") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>

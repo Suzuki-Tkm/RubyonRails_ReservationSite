@@ -16,8 +16,10 @@ class Administrator < ApplicationRecord
   attr_accessor :current_password
   validates :password, presence: { if: :current_password }
   validate do
-    brand = Brand.new(name: brand_name)
-    errors.add(:base , "ブランド名に誤りがあります") if !brand.save
-    self.brand_id = brand.id
+    if brand_name != nil
+      brand = Brand.new(name: brand_name)
+      errors.add(:base , "ブランド名に誤りがあります") if !brand.save
+      self.brand_id = brand.id
+    end
   end
 end

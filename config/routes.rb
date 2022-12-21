@@ -13,13 +13,13 @@ Rails.application.routes.draw do
   end
   resources :categories, only: [:index, :show , :create]
   resources :brands
-  resources :orders do
-    post :order , on: :collection
+  resources :orders , only: [:destroy] do
+    get :history , on: :collection
+    get :brand_order , on: :collection
+    post :brand_send , on: :member
   end
 
   resource :session, only: [:create, :destroy]
-  resource :account, only: [:show, :edit, :update , :new , :create] do
-    get :history , on: :collection
-  end
+  resource :account, only: [:show, :edit, :update , :new , :create]
   resource :password, only: [:show, :edit, :update]
 end

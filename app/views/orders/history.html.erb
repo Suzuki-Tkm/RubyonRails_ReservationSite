@@ -1,0 +1,39 @@
+<% @page_title = "注文履歴" %>
+<h1><%= @page_title %></h1>
+
+<% if @orders.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>ブランド</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>注文数</th>
+        <th>発送状態</th>
+        <th>注文日</th>
+        <th>注文取り消し</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |p| %>
+        <tr>
+          <td><%= link_to Category.find(Product.find(p.product_id).id).name , Category.find(Product.find(p.product_id).id) %></td>
+          <td><%= link_to Brand.find(Product.find(p.product_id).id).name , Brand.find(Product.find(p.product_id).id) %></td>
+          <td><%= link_to Product.find(p.product_id).name, Product.find(p.product_id) %></td>
+          <td><%= Product.find(p.product_id).price %></td>
+          <td><%= p.orders %></td>
+          <td><%= Order.status_text(p.status) %></td>
+          <td><%= p.order_date.strftime("%Y/%m/%d %H:%M") %></td>
+          <% if p.status.eql?("before_ordering")%>
+          <td><%= link_to "削除", p , method: :delete , data: { confirm: "削除しますか?" } %></td>
+          <% else %>
+          <td>不可</td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>
