@@ -1,0 +1,52 @@
+<% @page_title = "注文内容確認" %>
+<h1><%= @page_title %></h1>
+
+<table class="attr">
+  <tr>
+    <th>ユーザー名</th>
+    <td><%= @member.name %></td>
+  </tr>
+  <tr>
+    <th>電話番号</th>
+    <td><%= @member.phone_number %></td>
+  </tr>
+  <tr>
+    <th>住所</th>
+    <td><%= @member.address %></td>
+  </tr>
+  <tr>
+    <th>メールアドレス</th>
+    <td><%= @member.email %></td>
+  </tr>
+</table>
+
+<% if @orders.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>ブランド</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>購入数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= Category.find(Product.find(order.product_id).category_id).name %></td>
+          <td><%= Brand.find(Product.find(order.product_id).brand_id).name %></td>
+          <td><%= Product.find(order.product_id).name %></td>
+          <td><%= Product.find(order.product_id).price %></td>
+          <td><%= order.orders %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>カートに商品がありません。</p>
+<% end %>
+
+<% if @orders.present? %>
+  <%= link_to "注文", :order_products , method: :post, data: { confirm: "注文しますか?" } %>
+<%end%>

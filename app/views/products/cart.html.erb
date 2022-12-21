@@ -1,0 +1,42 @@
+<% @page_title = "カート" %>
+<h1><%= @page_title %></h1>
+
+<% if @orders.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>ブランド</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>購入数</th>
+        <th>追加</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= link_to Category.find(Product.find(order.product_id).category_id).name , Category.find(Product.find(order.product_id).category_id) %></td>
+          <td><%= link_to Brand.find(Product.find(order.product_id).brand_id).name , Brand.find(Product.find(order.product_id).brand_id) %></td>
+          <td><%= link_to Product.find(order.product_id).name, Product.find(order.product_id) %></td>
+          <td><%= Product.find(order.product_id).price %></td>
+          <td><%= order.orders %></td>
+          <td>
+          <%= link_to "+", [:increase, Product.find(order.product_id)], method: :patch %> |
+          <% if order.orders > 1 %>
+            <%= link_to "-", [:decrease, Product.find(order.product_id)], method: :patch %>
+          <% end%>
+          </td>
+          <td><%= link_to "削除", [:out, Product.find(order.product_id)], method: :patch, data: { confirm: "削除しますか?" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>カートに商品がありません。</p>
+<% end %>
+
+<% if @orders.present? %>
+  <%= link_to "注文確認", :confirm_products , method: :post %>
+<%end%>

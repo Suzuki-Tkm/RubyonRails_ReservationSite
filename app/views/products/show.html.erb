@@ -1,11 +1,17 @@
 <% @page_title = "商品の詳細" %>
 
 <h1><%= @page_title %></h1>
-<%= render "shared/errors", obj: @product %>
+
 <%= render "body" %>
 
 <% if current_member && current_member.votable_for?(@product) %>
   <%= link_to "🤍", [:like, @product], method: :patch, class: "button" %>
 <% elsif current_member %>
   <%= link_to "❤️", [:unlike1, @product],method: :patch, class: "button" %>
+<% end %>
+
+<% if current_member && @purchase_flag%>
+  <%= link_to "カートに入れる", [:in , @product], method: :patch, class: "button" %>
+<% elsif current_member %>
+  <%= link_to "注文個数の変更", :cart_products , class: "button"%>
 <% end %>
