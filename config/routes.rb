@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   root "products#index"
+  get "bad_request" => "top#bad_request"
+  get "forbidden" => "top#forbidden"
+  get "internal_server_error" => "top#internal_server_error"
 
   resources :products do
     patch :like, :unlike, :unlike1 , on: :member

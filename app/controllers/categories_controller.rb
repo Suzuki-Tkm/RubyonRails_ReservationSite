@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  before_action :administrator_login_required , except: [:show]
+
   def index
     @categories = Category.all
     @category = Category.new()

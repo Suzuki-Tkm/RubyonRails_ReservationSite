@@ -1,4 +1,6 @@
 class PasswordsController < ApplicationController
+  before_action :member_login_required
+  
   def show
     redirect_to :account
   end

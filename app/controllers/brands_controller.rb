@@ -1,4 +1,6 @@
 class BrandsController < ApplicationController
+  before_action :administrator_login_required , except: [:show]
+
   def index
     @brands = Brand.all
   end

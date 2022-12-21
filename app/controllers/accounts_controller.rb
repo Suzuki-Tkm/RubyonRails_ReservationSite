@@ -1,4 +1,5 @@
 class AccountsController < ApplicationController
+  before_action :member_login_required , except: [:new, :create]
 
   def show
     @member = current_member

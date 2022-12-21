@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  before_action :member_login_required , only: [:history]
+  before_action :brand_login_required , except: [:history]
+
   #注文履歴
   def history
     @orders = current_member.orders.history

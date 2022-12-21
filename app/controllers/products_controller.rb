@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  before_action :member_login_required , only: [:like , :unlike , :unlike1 ,:voted , :cart , :in , :out , :increase , :decrease , :confirm ,:order]
+  before_action :brand_login_required ,  only: [:new , :edit , :create , :destroy]
   def index
     @products = Product.all #おすすめ商品の予定
   end
