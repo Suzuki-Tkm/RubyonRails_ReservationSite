@@ -1,0 +1,31 @@
+<% @page_title = "お気に入りの服" %>
+<h1><%= @page_title %></h1>
+
+<% if @products.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>カテゴリー</th>
+        <th>ブランド</th>
+        <th>名前</th>
+        <th>価格</th>
+        <th>在庫</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |p| %>
+        <tr>
+          <td><%= link_to Category.find_by(id: p.category_id).name , Category.find_by(id: p.category_id) %></td>
+          <td><%= link_to Brand.find_by(id: p.brand_id).name , Brand.find_by(id: p.brand_id) %></td>
+          <td><%= link_to p.name, p %></td>
+          <td><%= p.price %></td>
+          <td><%= p.stock %></td>
+          <td><%= link_to "削除", [:unlike, p], method: :patch, data: { confirm: "削除しますか?" } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>お気に入りがありません。</p>
+<% end %>

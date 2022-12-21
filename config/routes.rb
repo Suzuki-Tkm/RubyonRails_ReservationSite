@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   root "products#index"
 
-  resources :products
+  resources :products do
+    patch :like, :unlike, :unlike1 , on: :member
+    get :voted, on: :collection
+  end
   resources :categories, only: [:index, :show , :create]
   resources :brands
 

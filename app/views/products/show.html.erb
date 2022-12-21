@@ -3,3 +3,9 @@
 <h1><%= @page_title %></h1>
 <%= render "shared/errors", obj: @product %>
 <%= render "body" %>
+
+<% if current_member && current_member.votable_for?(@product) %>
+  <%= link_to "🤍", [:like, @product], method: :patch, class: "button" %>
+<% elsif current_member %>
+  <%= link_to "❤️", [:unlike1, @product],method: :patch, class: "button" %>
+<% end %>

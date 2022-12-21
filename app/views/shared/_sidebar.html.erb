@@ -1,1 +1,20 @@
 <%= render "shared/login_form" unless current_member || current_administrator || current_brand%>
+
+<h2>カテゴリー</h2>
+<%
+  categories = Category.all
+%>
+<ul>
+  <% categories.each do |category| %>
+    <li><%= link_to category.name, category %></li>
+  <% end %>
+</ul>
+<h2>ブランド</h2>
+<%
+  brands = Brand.all
+%>
+<ul>
+  <% brands.each do |brand| %>
+    <li><%= link_to brand.name, brand %></li>
+  <% end %>
+</ul>

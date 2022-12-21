@@ -19,4 +19,8 @@ class Member < ApplicationRecord
 
   attr_accessor :current_password
   validates :password, presence: { if: :current_password }
+
+  def votable_for?(product)
+    product &&  !votes.exists?(product_id: product.id)
+  end
 end
