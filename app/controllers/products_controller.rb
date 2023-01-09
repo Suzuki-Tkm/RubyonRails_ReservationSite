@@ -16,7 +16,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new()
+    @product = Product.new(brand_id: current_brand.brand_id)
   end
 
   def edit
@@ -25,8 +25,9 @@ class ProductsController < ApplicationController
 
   def create
     @product = Product.new(params[:product])
+    @product.brand_id = current_brand.brand_id
     if @product.save
-      redirect_to :products, notice: "商品を登録しました。"
+      redirect_to Brand.all.find(@product.brand_id), notice: "商品を登録しました。"
     else
       render "new"
     end
@@ -36,7 +37,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     @product.assign_attributes(params[:product])
     if @product.save
-      redirect_to :products, notice: "商品を更新しました。"
+      redirect_to Brand.all.find(@product.brand_id), notice: "商品を更新しました。"
     else
       render "edit"
     end
@@ -45,7 +46,7 @@ class ProductsController < ApplicationController
   def destroy
     @product = Product.find(params[:id])
     @product.destroy
-    redirect_to :products, notice: "商品を削除しました。"
+    redirect_to Brand.all.find(@product.brand_id), notice: "商品を削除しました。"
   end
 
   def like
@@ -74,20 +75,23 @@ class ProductsController < ApplicationController
 
   def in
     product = Product.find(params[:id])
+    product.stock = product.stock - 1
     orders = current_member.orders
-    if orders.exists?(status: "cart" , product_id: product.id)
-      order = current_member.orders.cart.find_by(product_id: product.id)
-      product.stock = product.stock - 1
-      order.orders = order.orders + 1
-      if product.save
-        order.save 
-        redirect_to :cart_products, notice: "カートに入れました。"
+    if product.save
+      if orders.exists?(status: "cart" , product_id: product.id)
+        order = current_member.orders.cart.find_by(product_id: product.id)
+        order.orders = order.orders + 1
+        if order.save
+          redirect_to :cart_products, notice: "カートに入れました。"
+        else
+          redirect_to :product, notice: "処理にエラーが生じました"
+        end
       else
-        redirect_to :product, notice: "在庫がないため追加できません"
+        current_member.ordered_products << product
+        redirect_to :cart_products, notice: "カートに入れました。"
       end
     else
-      current_member.ordered_products << product
-      redirect_to :cart_products, notice: "カートに入れました。"
+      redirect_to :product, notice: "在庫がないため追加できません"
     end
   end
 
