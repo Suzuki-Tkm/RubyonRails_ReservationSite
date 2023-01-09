@@ -20,4 +20,19 @@ class Product < ApplicationRecord
       greater_than: -1,
       allow_blank: true
     }
+
+    class << self
+      def search(query)
+        ret = []
+        product = Product.all
+        if query.present?
+          Product.all.each do |p|
+            ret.push(p) if p.name.eql?(query) || Brand.find(p.brand_id).name.eql?(query) || Category.find(p.category_id).name.eql?(query)
+          end
+        else
+          ret = product
+        end
+        ret
+      end
+    end
 end

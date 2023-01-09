@@ -24,23 +24,18 @@ class BrandsController < ApplicationController
     end
   end
 
-  def edit
-    @brand = Brand.find(params[:id])
-  end
-
-  def update
-    @brand = Brand.find(params[:id])
-    @brand.assign_attributes(params[:brand])
-    if @brand.save
-      redirect_to brands_path, notice: "ブランドを更新しました。"
-    else
-      render "edit"
-    end
-  end
-
   def destroy
     @brand = Brand.find(params[:id])
-    @brand.destroy
-    redirect_to :brands, notice: "削除しました。"
+    products_id = []
+    @brand.products.each do |p|
+      products_id.push(p.id)
+    end
+
+    if Order.exists?(product_id: products_id)
+      redirect_to :brands, notice: "注文された商品があるため消去できません"
+    else
+      @brand.destroy
+      redirect_to :brands, notice: "削除しました。"
+    end
   end
 end

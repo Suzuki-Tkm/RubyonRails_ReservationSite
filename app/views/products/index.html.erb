@@ -1,6 +1,11 @@
 <% @page_title = "おすすめ商品" %>
 <h1><%= @page_title %></h1>
 
+<%= form_tag :search_products, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+<% end %>
+
 <% if @products.present? %>
   <table class="list">
     <thead>

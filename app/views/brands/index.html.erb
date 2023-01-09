@@ -9,7 +9,6 @@
     <thead>
       <tr>
         <th>ブランド</th>
-        <th>編集</th>
         <th>消去</th>
       </tr>
     </thead>
@@ -17,7 +16,6 @@
       <% @brands.each do |p| %>
         <tr>
           <td><%= p.name %></td>
-          <td><%= link_to "編集", [:edit, p] %></td>
           <td><%= link_to "削除", p, method: :delete , data: { confirm: "本当に削除しますか?" } %></td>
         </tr>
       <% end %>

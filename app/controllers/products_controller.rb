@@ -45,8 +45,17 @@ class ProductsController < ApplicationController
 
   def destroy
     @product = Product.find(params[:id])
-    @product.destroy
-    redirect_to Brand.all.find(@product.brand_id), notice: "商品を削除しました。"
+    if Order.exists?(product_id: @product)
+      redirect_to Brand.all.find(@product.brand_id) , notice: "注文されているため消去できません。"
+    else
+      @product.destroy
+      redirect_to Brand.all.find(@product.brand_id) , notice: "商品を削除しました。"
+    end
+  end
+
+  def search
+    @products = Product.search(params[:q])
+    render "index"
   end
 
   def like

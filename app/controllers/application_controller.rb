@@ -38,6 +38,10 @@ class ApplicationController < ActionController::Base
     raise LoginRequired unless current_administrator
   end
 
+  private def admin_login_required
+    raise LoginRequired unless current_administrator || current_brand
+  end
+
   private def rescue_bad_request(exception)
     render "errors/bad_request", status: 400, layout: "error",
       formats: [:html]
