@@ -27,7 +27,7 @@ class AccountsController < ApplicationController
   def create
     @member = Member.new(params[:member])
     if @member.save
-      cookies.signed[:member_id] = @member.id
+      session[:member_id] = @member.id
       redirect_to :root , notice: "会員を登録しました。"
     else
       render "new"

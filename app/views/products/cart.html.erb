@@ -1,6 +1,6 @@
 <% @page_title = "カート" %>
 <h1><%= @page_title %></h1>
-
+<% sum  = 0 %>
 <% if @orders.present? %>
   <table class="list">
     <thead>
@@ -10,6 +10,7 @@
         <th>名前</th>
         <th>価格</th>
         <th>購入数</th>
+        <th>小計</th>
         <th>追加</th>
         <th>操作</th>
       </tr>
@@ -22,6 +23,7 @@
           <td><%= link_to Product.find(order.product_id).name, Product.find(order.product_id) %></td>
           <td><%= Product.find(order.product_id).price %></td>
           <td><%= order.orders %></td>
+          <td><%= Product.find(order.product_id).price * order.orders%></td>
           <td>
           <%= link_to "+", [:increase, Product.find(order.product_id)], method: :patch %> |
           <% if order.orders > 1 %>
@@ -30,12 +32,21 @@
           </td>
           <td><%= link_to "削除", [:out, Product.find(order.product_id)], method: :patch, data: { confirm: "削除しますか?" } %></td>
         </tr>
+        <% sum  = sum +  Product.find(order.product_id).price * order.orders %>
       <% end %>
     </tbody>
   </table>
 <% else %>
   <p>カートに商品がありません。</p>
 <% end %>
+
+<table class="attr">
+  <tr>
+    <th>合計</th>
+    <td><%= sum %>円</td>
+  </tr>
+</table>
+
 
 <% if @orders.present? %>
   <%= link_to "注文確認", :confirm_products , method: :post %>

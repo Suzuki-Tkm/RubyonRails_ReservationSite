@@ -1,6 +1,6 @@
 <% @page_title = "注文内容確認" %>
 <h1><%= @page_title %></h1>
-
+<% sum  = 0 %>
 <table class="attr">
   <tr>
     <th>ユーザー名</th>
@@ -29,6 +29,7 @@
         <th>名前</th>
         <th>価格</th>
         <th>購入数</th>
+        <th>小計</th>
       </tr>
     </thead>
     <tbody>
@@ -39,6 +40,8 @@
           <td><%= Product.find(order.product_id).name %></td>
           <td><%= Product.find(order.product_id).price %></td>
           <td><%= order.orders %></td>
+          <td><%= Product.find(order.product_id).price * order.orders%></td>
+          <% sum  = sum +  Product.find(order.product_id).price * order.orders %>
         </tr>
       <% end %>
     </tbody>
@@ -46,6 +49,13 @@
 <% else %>
   <p>カートに商品がありません。</p>
 <% end %>
+
+<table class="attr">
+  <tr>
+    <th>合計</th>
+    <td><%= sum %>円</td>
+  </tr>
+</table>
 
 <% if @orders.present? %>
   <%= link_to "注文", :order_products , method: :post, data: { confirm: "注文しますか?" } %>
