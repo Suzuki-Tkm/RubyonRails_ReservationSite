@@ -1,13 +1,11 @@
-names = %w(スウェット MA-1 スラックス つなぎ スカート ドレス ネクタイ  トートバッグ スニーカー 指輪)
-names_c = %w(トップス ジャケット パンツ オールインワン スカート ワンピース 小物 バッグ シューズ アクセサリー)
-names_b = %w(CHANEL GUCCI DIOR PRADA FENDI COACH ユニクロ マンハッタン ノースフェーす シェいん)
-0.upto(9) do |idx|
+names = %w(スウェット MA-1 スラックス つなぎ スカート ドレス ネクタイ  トートバッグ スニーカー 指輪  パーカー ブルゾン チノパンツ サロペット デニムスカート 着物 ケース ポーチ サンダル ネックレス)
+0.upto(names.length - 1) do |idx|
   product = Product.create(
-    category_id: idx,
-    brand_id: idx,
+    category_id: (idx % Category.all.length) + 1,
+    brand_id: (idx % Brand.all.length) + 1,
     name: names[idx],
-    price: idx * 100,
-    stock: idx
+    price: rand(1..10000),
+    stock: rand(1..100)
   )
   if idx == 7 || idx == 8
     %w(John Mike Sophy).each do |name|

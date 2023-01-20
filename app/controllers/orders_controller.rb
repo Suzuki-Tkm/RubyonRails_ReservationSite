@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
-  before_action :member_login_required , only: [:history]
-  before_action :brand_login_required , except: [:history]
+  before_action :member_login_required , only: [:history ,:destroy]
+  before_action :brand_login_required , except: [:history , :destroy]
 
   #注文履歴
   def history

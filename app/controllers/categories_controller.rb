@@ -15,7 +15,9 @@ class CategoriesController < ApplicationController
     if @category.save
       redirect_to :categories , notice: "カテゴリーを登録しました。"
     else
-      render "index"
+      @categories = Category.all
+      @category = Category.new()
+      redirect_to :categories , notice: "同じ名前のカテゴリーがあります。"
     end
   end
 end

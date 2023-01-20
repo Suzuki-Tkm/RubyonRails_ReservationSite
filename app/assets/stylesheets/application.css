@@ -101,7 +101,7 @@ footer nav ul li:not(:last-child):after {
 /* メニューバー */
 nav.menubar {
   padding: 2px;
-  background-color: #000;
+  background-color: rgb(83, 83, 83);
   color: #ccc;
   font-size: 80%;
   padding: 8px 16px;

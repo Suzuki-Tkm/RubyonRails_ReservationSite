@@ -25,9 +25,9 @@
           <td><%= order.orders %></td>
           <td><%= Product.find(order.product_id).price * order.orders%></td>
           <td>
-          <%= link_to "+", [:increase, Product.find(order.product_id)], method: :patch %> |
+          <%= link_to "+", [:increase, Product.find(order.product_id)], method: :patch , data: { confirm: "一つ追加しますか?"} %> |
           <% if order.orders > 1 %>
-            <%= link_to "-", [:decrease, Product.find(order.product_id)], method: :patch %>
+            <%= link_to "-", [:decrease, Product.find(order.product_id)], method: :patch , data: { confirm: "一つ削除しますか?"}%>
           <% end%>
           </td>
           <td><%= link_to "削除", [:out, Product.find(order.product_id)], method: :patch, data: { confirm: "削除しますか?" } %></td>

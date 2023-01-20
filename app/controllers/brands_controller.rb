@@ -34,6 +34,7 @@ class BrandsController < ApplicationController
     if Order.exists?(product_id: products_id)
       redirect_to :brands, notice: "注文された商品があるため消去できません"
     else
+      @brand.administrator.destroy
       @brand.destroy
       redirect_to :brands, notice: "削除しました。"
     end

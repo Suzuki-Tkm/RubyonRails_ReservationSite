@@ -27,7 +27,7 @@ class Product < ApplicationRecord
         product = Product.all
         if query.present?
           Product.all.each do |p|
-            ret.push(p) if p.name.eql?(query) || Brand.find(p.brand_id).name.eql?(query) || Category.find(p.category_id).name.eql?(query)
+            ret.push(p) if p.name.include?(query) || Brand.find(p.brand_id).name.include?(query) || Category.find(p.category_id).name.include?(query)
           end
         else
           ret = product

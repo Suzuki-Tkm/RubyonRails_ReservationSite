@@ -5,6 +5,9 @@
   <table class="list">
     <thead>
       <tr>
+        <th>ユーザー</th>
+        <th>住所</th>
+        <th>電話番号</th>
         <th>カテゴリー</th>
         <th>名前</th>
         <th>価格</th>
@@ -17,6 +20,9 @@
     <tbody>
       <% @orders.each do |p| %>
         <tr>
+          <td><%= Member.find(p.member_id).name %></td>
+          <td><%= Member.find(p.member_id).address %></td>
+          <td><%= Member.find(p.member_id).phone_number %></td>
           <td><%= link_to Category.find(Product.find(p.product_id).id).name , Category.find(Product.find(p.product_id).id) %></td>
           <td><%= link_to Product.find(p.product_id).name, Product.find(p.product_id) %></td>
           <td><%= Product.find(p.product_id).price %></td>
